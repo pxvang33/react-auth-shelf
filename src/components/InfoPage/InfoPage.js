@@ -7,6 +7,11 @@ import { connect } from 'react-redux';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 class InfoPage extends Component {
+
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_SHELF' });
+  }
+
   render() {
     return (
       <div>
