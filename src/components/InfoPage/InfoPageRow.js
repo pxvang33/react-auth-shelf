@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import InfoPageRow from './InfoPageRow';
 
 import ShelfInputForm from '../ShelfInputForm/ShelfInputForm';
 
@@ -11,24 +10,20 @@ import ShelfInputForm from '../ShelfInputForm/ShelfInputForm';
 
 class InfoPage extends Component {
 
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_SHELF' });
-  }
+    deleteItem = () => {
+        const action = { type: 'DELETE_FROM_SHELF', payload: this.props.shelfItem.id  }
+        this.props.dispatch(action);
+    }
 
-  render() {
-    return (
-      <div>
-        <ShelfInputForm />
-        <h2>Shelf Contents:</h2>
-        
-        <ul>
-          {this.props.reduxStore.shelf.map(shelfItem => (
-             <InfoPageRow key={shelfItem.id} shelfItem={shelfItem}/>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <li>{this.props.shelfItem.description}
+                    <button onClick={this.deleteItem}>Delete </button></li>
+
+            </div>
+        );
+    }
 }
 
 const mapReduxStoreToProps = (reduxStore) => ({ reduxStore });
