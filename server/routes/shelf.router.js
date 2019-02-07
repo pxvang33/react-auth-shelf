@@ -41,9 +41,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/', rejectUnauthenticated, (req, res) => {
-    const queryText = 'DELETE FROM "item WHERE id=$1';
-    pool.query(queryText, [req.query.id])
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = 'DELETE FROM "item" WHERE id=$1';
+    pool.query(queryText, [req.params.id])
       .then(() => { res.sendStatus(200); })
       .catch((err) => {
         console.log('Delete Error', err);
