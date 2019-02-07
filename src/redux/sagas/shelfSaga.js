@@ -11,8 +11,21 @@ function* fetchShelf(action) {
     }
 }
 
+// saga function will run on "ADD_TO_SHELF"
+function* addToShelf(action) {
+    try {
+        yield axios.post('/api/shelf', action.payload);
+        const newAction = {type: 'FETCH_SHELF'};
+        yield put(newAction);
+    } catch (error) {
+        console.log(`Error in adding to shelf: ${error}`);
+    }
+
+} // end addToShelf
+
 function* shelfSaga() {
     yield takeLatest('FETCH_SHELF', fetchShelf);
+    yield takeLatest('ADD_TO_SHELF', addToShelf);
 }
 
 export default shelfSaga;
