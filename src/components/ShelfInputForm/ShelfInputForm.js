@@ -4,24 +4,38 @@ import { connect } from 'react-redux';
 class ShelfInputForm extends Component {
     constructor(props){
         super(props);
-        this.state= {
+        this.state = {
             description: '',
             image_url: '',
-        }
+            person_id: this.props.user.id,
+        };
+        console.log(this.state);
+    }
+
+    changeInput = (event) => {
+        const attributeName = event.target.name;
+        const changeValue = event.target.value;
+        this.setState({
+            ...this.state,
+            [attributeName]: changeValue, 
+        });
     }
 
     submit = (event) => {
         event.preventDefault();
-        console.log('submit');
+        const action = {
+            type: 'ADD_TO_SHELF',
+            payload: this.state,
+        }
+        this.props.dispatch(action);
     }
 
     render() {
         return (
             <div>
-                <p>[ShelfInputForm]</p>
                 <form onSubmit={this.submit}>
-                    <input type="text" name="description" placeholder="description" required />
-                    <input type="text" name="image_url" placeholder="Image" required />
+                    <input onChange={this.changeInput} type="text" name="description" placeholder="Description" required />
+                    <input onChange={this.changeInput} type="text" name="image_url" placeholder="Image URL" required />
                     <input type="submit" />
                 </form>
             </div>
@@ -29,5 +43,11 @@ class ShelfInputForm extends Component {
     }
 }
 
-const mapReduxStoreToProps = (reduxStore) => ({ reduxStore });
+// const mapReduxStoreToProps = (reduxStore) => ({ reduxStore });
+
+const mapReduxStoreToProps = reduxStore => ({
+    ...reduxStore,
+    user: reduxStore.user,
+});
+
 export default connect(mapReduxStoreToProps)(ShelfInputForm);
