@@ -18,7 +18,7 @@ class InfoPage extends Component {
     render() {
         return (
             <div>
-                <li>{this.props.shelfItem.description}
+                <li><img src={this.props.shelfItem.image_url} alt='' />  {this.props.shelfItem.description}
                     <button onClick={this.deleteItem}>Delete </button></li>
 
             </div>
