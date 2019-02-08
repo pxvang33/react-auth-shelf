@@ -28,14 +28,16 @@ class ShelfInputForm extends Component {
             payload: this.state,
         }
         this.props.dispatch(action);
+        this.refs.description.value = '';
+        this.refs.image_url.value = '';
     }
 
     render() {
         return (
             <div>
                 <form onSubmit={this.submit}>
-                    <input onChange={this.changeInput} type="text" name="description" placeholder="Description" required />
-                    <input onChange={this.changeInput} type="text" name="image_url" placeholder="Image URL" required />
+                    <input onChange={this.changeInput} type="text" name="description" ref="description" placeholder="Description" required />
+                    <input onChange={this.changeInput} type="text" name="image_url" ref="image_url" placeholder="Image URL" required />
                     <input type="submit" />
                 </form>
             </div>
